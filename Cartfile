@@ -1,1 +1,2 @@
-github "srea/RIBsTreeViewerClient"
+github "uber/RIBs" ~> 0.9
+github "socketio/socket.io-client-swift" ~> 13.3.0
