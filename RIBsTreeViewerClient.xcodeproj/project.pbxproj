@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C555E16421EF16520060A7B0 /* RIBsTreeViewerClient.h in Headers */ = {isa = PBXBuildFile; fileRef = C555E16221EF16520060A7B0 /* RIBsTreeViewerClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C555E16B21EF16790060A7B0 /* RIBsTreeWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C555E16A21EF16790060A7B0 /* RIBsTreeWatcher.swift */; };
+		C555E16B21EF16790060A7B0 /* RIBsTreeViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C555E16A21EF16790060A7B0 /* RIBsTreeViewer.swift */; };
 		C555E17421EF20C30060A7B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C555E17321EF20C30060A7B0 /* AppDelegate.swift */; };
 		C555E17621EF20C30060A7B0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C555E17521EF20C30060A7B0 /* ViewController.swift */; };
 		C555E17921EF20C30060A7B0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C555E17721EF20C30060A7B0 /* Main.storyboard */; };
@@ -24,7 +24,7 @@
 		C555E15F21EF16520060A7B0 /* RIBsTreeViewerClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RIBsTreeViewerClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C555E16221EF16520060A7B0 /* RIBsTreeViewerClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RIBsTreeViewerClient.h; sourceTree = "<group>"; };
 		C555E16321EF16520060A7B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C555E16A21EF16790060A7B0 /* RIBsTreeWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RIBsTreeWatcher.swift; sourceTree = "<group>"; };
+		C555E16A21EF16790060A7B0 /* RIBsTreeViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RIBsTreeViewer.swift; sourceTree = "<group>"; };
 		C555E17121EF20C30060A7B0 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C555E17321EF20C30060A7B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C555E17521EF20C30060A7B0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -92,7 +92,7 @@
 		C555E16C21EF1C710060A7B0 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				C555E16A21EF16790060A7B0 /* RIBsTreeWatcher.swift */,
+				C555E16A21EF16790060A7B0 /* RIBsTreeViewer.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -233,7 +233,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C555E16B21EF16790060A7B0 /* RIBsTreeWatcher.swift in Sources */,
+				C555E16B21EF16790060A7B0 /* RIBsTreeViewer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
