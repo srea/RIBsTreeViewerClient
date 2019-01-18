@@ -11,17 +11,17 @@ import RxSwift
 import RIBs
 import SocketIO
 
-final class RIBsTreeViewer {
+public class RIBsTreeViewer {
 
     private let router: Routing
     private let socketClient = SocketClient()
     private let disposeBag = DisposeBag()
 
-    init(router: Routing) {
+    public init(router: Routing) {
         self.router = router
     }
 
-    func start() {
+    public func start() {
         Observable<Int>.interval(0.2, scheduler: MainScheduler.instance)
             .map { [unowned self] _ in
                 self.tree(router: self.router)
