@@ -3,17 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		C555E16421EF16520060A7B0 /* RIBsTreeViewerClient.h in Headers */ = {isa = PBXBuildFile; fileRef = C555E16221EF16520060A7B0 /* RIBsTreeViewerClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C555E16B21EF16790060A7B0 /* RIBsTreeViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C555E16A21EF16790060A7B0 /* RIBsTreeViewer.swift */; };
-		C555E17421EF20C30060A7B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C555E17321EF20C30060A7B0 /* AppDelegate.swift */; };
-		C555E17621EF20C30060A7B0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C555E17521EF20C30060A7B0 /* ViewController.swift */; };
-		C555E17921EF20C30060A7B0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C555E17721EF20C30060A7B0 /* Main.storyboard */; };
-		C555E17B21EF20C40060A7B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C555E17A21EF20C40060A7B0 /* Assets.xcassets */; };
-		C555E17E21EF20C40060A7B0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C555E17C21EF20C40060A7B0 /* LaunchScreen.storyboard */; };
 		C555E18821EF244C0060A7B0 /* RIBs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C555E18421EF20F10060A7B0 /* RIBs.framework */; };
 		C555E18921EF245A0060A7B0 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C555E18621EF20FF0060A7B0 /* RxSwift.framework */; };
 		C555E18B21EF27150060A7B0 /* SocketIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C555E18A21EF27150060A7B0 /* SocketIO.framework */; };
@@ -25,13 +20,6 @@
 		C555E16221EF16520060A7B0 /* RIBsTreeViewerClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RIBsTreeViewerClient.h; sourceTree = "<group>"; };
 		C555E16321EF16520060A7B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C555E16A21EF16790060A7B0 /* RIBsTreeViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RIBsTreeViewer.swift; sourceTree = "<group>"; };
-		C555E17121EF20C30060A7B0 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C555E17321EF20C30060A7B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C555E17521EF20C30060A7B0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		C555E17821EF20C30060A7B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		C555E17A21EF20C40060A7B0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C555E17D21EF20C40060A7B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		C555E17F21EF20C40060A7B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C555E18421EF20F10060A7B0 /* RIBs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RIBs.framework; path = Carthage/Build/iOS/RIBs.framework; sourceTree = "<group>"; };
 		C555E18621EF20FF0060A7B0 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 		C555E18A21EF27150060A7B0 /* SocketIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SocketIO.framework; path = Carthage/Build/iOS/SocketIO.framework; sourceTree = "<group>"; };
@@ -50,13 +38,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C555E16E21EF20C30060A7B0 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -64,7 +45,6 @@
 			isa = PBXGroup;
 			children = (
 				C555E16121EF16520060A7B0 /* RIBsTreeViewerClient */,
-				C555E17221EF20C30060A7B0 /* Example */,
 				C555E16021EF16520060A7B0 /* Products */,
 				C555E18321EF20F00060A7B0 /* Frameworks */,
 			);
@@ -74,7 +54,6 @@
 			isa = PBXGroup;
 			children = (
 				C555E15F21EF16520060A7B0 /* RIBsTreeViewerClient.framework */,
-				C555E17121EF20C30060A7B0 /* Example.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,19 +74,6 @@
 				C555E16A21EF16790060A7B0 /* RIBsTreeViewer.swift */,
 			);
 			path = Sources;
-			sourceTree = "<group>";
-		};
-		C555E17221EF20C30060A7B0 /* Example */ = {
-			isa = PBXGroup;
-			children = (
-				C555E17321EF20C30060A7B0 /* AppDelegate.swift */,
-				C555E17521EF20C30060A7B0 /* ViewController.swift */,
-				C555E17721EF20C30060A7B0 /* Main.storyboard */,
-				C555E17A21EF20C40060A7B0 /* Assets.xcassets */,
-				C555E17C21EF20C40060A7B0 /* LaunchScreen.storyboard */,
-				C555E17F21EF20C40060A7B0 /* Info.plist */,
-			);
-			path = Example;
 			sourceTree = "<group>";
 		};
 		C555E18321EF20F00060A7B0 /* Frameworks */ = {
@@ -153,23 +119,6 @@
 			productReference = C555E15F21EF16520060A7B0 /* RIBsTreeViewerClient.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		C555E17021EF20C30060A7B0 /* Example */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C555E18021EF20C40060A7B0 /* Build configuration list for PBXNativeTarget "Example" */;
-			buildPhases = (
-				C555E16D21EF20C30060A7B0 /* Sources */,
-				C555E16E21EF20C30060A7B0 /* Frameworks */,
-				C555E16F21EF20C30060A7B0 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Example;
-			productName = Example;
-			productReference = C555E17121EF20C30060A7B0 /* Example.app */;
-			productType = "com.apple.product-type.application";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -183,14 +132,12 @@
 					C555E15E21EF16520060A7B0 = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1010;
-					};
-					C555E17021EF20C30060A7B0 = {
-						CreatedOnToolsVersion = 10.1;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
 			buildConfigurationList = C555E15921EF16520060A7B0 /* Build configuration list for PBXProject "RIBsTreeViewerClient" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -202,7 +149,6 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C555E17021EF20C30060A7B0 /* Example */,
 				C555E15E21EF16520060A7B0 /* RIBsTreeViewerClient */,
 			);
 		};
@@ -213,16 +159,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C555E16F21EF20C30060A7B0 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C555E17E21EF20C40060A7B0 /* LaunchScreen.storyboard in Resources */,
-				C555E17B21EF20C40060A7B0 /* Assets.xcassets in Resources */,
-				C555E17921EF20C30060A7B0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,35 +173,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C555E16D21EF20C30060A7B0 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C555E17621EF20C30060A7B0 /* ViewController.swift in Sources */,
-				C555E17421EF20C30060A7B0 /* AppDelegate.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		C555E17721EF20C30060A7B0 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C555E17821EF20C30060A7B0 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		C555E17C21EF20C40060A7B0 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C555E17D21EF20C40060A7B0 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		C555E16521EF16520060A7B0 /* Debug */ = {
@@ -320,7 +228,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -378,12 +286,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -397,7 +304,7 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = QWHX6X2C6N;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -407,11 +314,8 @@
 				);
 				INFOPLIST_FILE = RIBsTreeViewerClient/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = co.minipro.app.RIBsTreeViewerClient;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -428,7 +332,7 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = QWHX6X2C6N;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -438,58 +342,11 @@
 				);
 				INFOPLIST_FILE = RIBsTreeViewerClient/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = co.minipro.app.RIBsTreeViewerClient;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		C555E18121EF20C40060A7B0 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QWHX6X2C6N;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				INFOPLIST_FILE = Example/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.minipro.app.Example;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		C555E18221EF20C40060A7B0 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QWHX6X2C6N;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				INFOPLIST_FILE = Example/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.minipro.app.Example;
-				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -512,15 +369,6 @@
 			buildConfigurations = (
 				C555E16821EF16520060A7B0 /* Debug */,
 				C555E16921EF16520060A7B0 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C555E18021EF20C40060A7B0 /* Build configuration list for PBXNativeTarget "Example" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C555E18121EF20C40060A7B0 /* Debug */,
-				C555E18221EF20C40060A7B0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
