@@ -11,14 +11,25 @@ import RxSwift
 import RIBs
 import SocketIO
 
+public enum RIBsTreeViewerOptions: String {
+    case socketURL
+}
+
 public class RIBsTreeViewer {
 
     private let router: Routing
-    private let socketClient = SocketClient()
+    private let socketClient: SocketClient
     private let disposeBag = DisposeBag()
 
-    public init(router: Routing) {
+    public init(router: Routing, option: [RIBsTreeViewerOptions: String]? = nil) {
+        let url = option?[.socketURL]
         self.router = router
+
+        if let url = url {
+            self.socketClient = SocketClient.init(url: URL(string: url)!)
+        } else {
+            self.socketClient = SocketClient.init(url: nil)
+        }
     }
 
     public func start() {
@@ -36,9 +47,8 @@ public class RIBsTreeViewer {
 
         socketClient.socket.on("take capture rib") { [unowned self] data, _ in
             guard let routerName = data[0] as? String else { return }
-            print("take capture")
-            if let base64Image = self.takeBase64Capture(targetRouter: routerName) {
-                self.socketClient.socket.emit("capture image", base64Image)
+            if let data = self.captureView(from: routerName) {
+                self.socketClient.socket.emit("capture image", data.base64EncodedString())
             }
         }
     }
@@ -55,15 +65,6 @@ public class RIBsTreeViewer {
         }
     }
 
-    private func takeBase64Capture(targetRouter: String) -> String? {
-        guard let router = findRouter(target: targetRouter, router: router) as? ViewableRouting,
-            let view = router.viewControllable.uiviewController.view,
-            let captureImage = image(with: view) else {
-                return nil
-        }
-        return captureImage.pngData()?.base64EncodedString()
-    }
-
     private func findRouter(target: String, router: Routing) -> Routing? {
         let currentRouter = String(describing: type(of: router))
         if target == currentRouter {
@@ -73,6 +74,15 @@ public class RIBsTreeViewer {
         } else {
             return nil
         }
+    }
+
+    private func captureView(from targetRouter: String) -> Data? {
+        guard let router = findRouter(target: targetRouter, router: router) as? ViewableRouting,
+            let view = router.viewControllable.uiviewController.view,
+            let captureImage = image(with: view) else {
+                return nil
+        }
+        return captureImage.pngData()
     }
 
     private func image(with view: UIView) -> UIImage? {
@@ -89,17 +99,15 @@ public class RIBsTreeViewer {
 
 final class SocketClient {
 
-    static let `default` = SocketClient()
-
-    let manager: SocketManager
     let socket: SocketIOClient
+    private let manager: SocketManager
     private var isConnected: Bool = false
 
-    init() {
-        self.manager = SocketManager(socketURL: URL(string: "http://localhost:8000")!, config: [.log(false), .compress])
+    init(url: URL?) {
+        self.manager = SocketManager(socketURL: url ?? URL(string: "http://localhost:8000")!,
+                                     config: [.log(false), .compress])
         self.socket = manager.socket(forNamespace: "/ribs")
         self.socket.on(clientEvent: .connect) {_, _ in
-            print("socket connected")
             self.isConnected = true
         }
         self.socket.connect()
