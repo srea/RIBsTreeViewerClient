@@ -9,48 +9,49 @@
 import Foundation
 import RxSwift
 import RIBs
-import SocketIO
 
 public enum RIBsTreeViewerOptions: String {
-    case socketURL
+    case webSocketURL
 }
 
+@available(iOS 13.0, *)
 public class RIBsTreeViewer {
 
     private let router: Routing
-    private let socketClient: SocketClient
+    private let webSocket: WebSocketTaskConnection
     private let disposeBag = DisposeBag()
 
     public init(router: Routing, option: [RIBsTreeViewerOptions: String]? = nil) {
-        let url = option?[.socketURL]
+        let url = option?[.webSocketURL]
         self.router = router
 
         if let url = url {
-            self.socketClient = SocketClient.init(url: URL(string: url)!)
+            self.webSocket = WebSocketTaskConnection.init(url: URL(string: url)!)
         } else {
-            self.socketClient = SocketClient.init(url: nil)
+            self.webSocket = WebSocketTaskConnection.init(url: URL(string: "wc://localhost:8080")!)
         }
+        self.webSocket.delegate = self
+        self.webSocket.connect()
     }
 
     public func start() {
-        Observable<Int>.interval(0.2, scheduler: MainScheduler.instance)
+        Observable<Int>.interval(RxTimeInterval.microseconds(200), scheduler: MainScheduler.instance)
             .map { [unowned self] _ in
                 self.tree(router: self.router)
-            }
-            .distinctUntilChanged { a, b in
-                NSDictionary(dictionary: a).isEqual(to: b)
-            }
-            .subscribe(onNext: { [unowned self] in
-                self.socketClient.send(tree: $0)
-            })
-            .disposed(by: disposeBag)
-
-        socketClient.socket.on("take capture rib") { [unowned self] data, _ in
-            guard let routerName = data[0] as? String else { return }
-            if let data = self.captureView(from: routerName) {
-                self.socketClient.socket.emit("capture image", data.base64EncodedString())
-            }
         }
+        .distinctUntilChanged { a, b in
+            NSDictionary(dictionary: a).isEqual(to: b)
+        }
+        .subscribe(onNext: { [weak self] in
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: $0)
+                let jsonString = String(bytes: jsonData, encoding: .utf8)!
+                self?.webSocket.send(text: jsonString)
+            } catch {
+                print(error)
+            }
+        })
+            .disposed(by: disposeBag)
     }
 
     private func tree(router: Routing, appendImage: Bool = false) -> [String: Any] {
@@ -97,32 +98,28 @@ public class RIBsTreeViewer {
     }
 }
 
-final class SocketClient {
+@available(iOS 13.0, *)
+extension RIBsTreeViewer: WebSocketConnectionDelegate {
 
-    let socket: SocketIOClient
-    private let manager: SocketManager
-    private var isConnected: Bool = false
-
-    init(url: URL?) {
-        self.manager = SocketManager(socketURL: url ?? URL(string: "http://localhost:8000")!,
-                                     config: [.log(false), .compress])
-        self.socket = manager.socket(forNamespace: "/ribs")
-        self.socket.on(clientEvent: .connect) {_, _ in
-            self.isConnected = true
-        }
-        self.socket.connect()
+    func onConnected(connection: WebSocketConnection) {
     }
 
-    func send(tree: [String: Any]) {
-        guard isConnected else {
-            return
-        }
-        do {
-            let jsonData = try JSONSerialization.data(withJSONObject: tree)
-            let jsonString = String(bytes: jsonData, encoding: .utf8)!
-            socket.emit("tree_update", jsonString)
-        } catch {
-            print(error)
+    func onDisconnected(connection: WebSocketConnection, error: Error?) {
+    }
+
+    func onError(connection: WebSocketConnection, error: Error) {
+    }
+
+    func onMessage(connection: WebSocketConnection, text: String) {
+        // text == routerName
+        DispatchQueue.main.async {
+            if let data = self.captureView(from: text) {
+                self.webSocket.send(data: data)
+            }
         }
     }
+
+    func onMessage(connection: WebSocketConnection, data: Data) {
+    }
+
 }

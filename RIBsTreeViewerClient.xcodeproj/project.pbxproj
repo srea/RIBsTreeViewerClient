@@ -11,8 +11,7 @@
 		C555E16B21EF16790060A7B0 /* RIBsTreeViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C555E16A21EF16790060A7B0 /* RIBsTreeViewer.swift */; };
 		C555E18821EF244C0060A7B0 /* RIBs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C555E18421EF20F10060A7B0 /* RIBs.framework */; };
 		C555E18921EF245A0060A7B0 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C555E18621EF20FF0060A7B0 /* RxSwift.framework */; };
-		C555E18B21EF27150060A7B0 /* SocketIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C555E18A21EF27150060A7B0 /* SocketIO.framework */; };
-		C555E18D21EF271F0060A7B0 /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C555E18C21EF271F0060A7B0 /* Starscream.framework */; };
+		C5AC41E72396A0AD00F6A344 /* WebSocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AC41E62396A0AD00F6A344 /* WebSocketClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +23,7 @@
 		C555E18621EF20FF0060A7B0 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 		C555E18A21EF27150060A7B0 /* SocketIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SocketIO.framework; path = Carthage/Build/iOS/SocketIO.framework; sourceTree = "<group>"; };
 		C555E18C21EF271F0060A7B0 /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = Carthage/Build/iOS/Starscream.framework; sourceTree = "<group>"; };
+		C5AC41E62396A0AD00F6A344 /* WebSocketClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,8 +31,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C555E18D21EF271F0060A7B0 /* Starscream.framework in Frameworks */,
-				C555E18B21EF27150060A7B0 /* SocketIO.framework in Frameworks */,
 				C555E18921EF245A0060A7B0 /* RxSwift.framework in Frameworks */,
 				C555E18821EF244C0060A7B0 /* RIBs.framework in Frameworks */,
 			);
@@ -72,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				C555E16A21EF16790060A7B0 /* RIBsTreeViewer.swift */,
+				C5AC41E62396A0AD00F6A344 /* WebSocketClient.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -169,6 +168,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5AC41E72396A0AD00F6A344 /* WebSocketClient.swift in Sources */,
 				C555E16B21EF16790060A7B0 /* RIBsTreeViewer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -316,6 +316,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = co.minipro.app.RIBsTreeViewerClient;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -344,6 +345,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = co.minipro.app.RIBsTreeViewerClient;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
