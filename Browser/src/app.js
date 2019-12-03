@@ -27,7 +27,7 @@ sock.addEventListener("message", e => {
         }
     } else {
         const blob = new Blob([e.data], {
-            type: 'image/jpeg'
+            type: 'image/png'
         });
         var blobURL = blobUtil.createObjectURL(blob);
         document.getElementById('capture').setAttribute('src', blobURL);

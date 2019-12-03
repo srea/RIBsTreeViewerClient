@@ -32,7 +32,7 @@ public class RIBsTreeViewerImpl {
         if let url = url {
             self.webSocket = WebSocketClient.init(url: URL(string: url)!)
         } else {
-            self.webSocket = WebSocketClient.init(url: URL(string: "wc://0.0.0.0:8080")!)
+            self.webSocket = WebSocketClient.init(url: URL(string: "ws://0.0.0.0:8080")!)
         }
         self.webSocket.delegate = self
         self.webSocket.connect()
@@ -52,7 +52,7 @@ public class RIBsTreeViewerImpl {
                 let jsonString = String(bytes: jsonData, encoding: .utf8)!
                 self?.webSocket.send(text: jsonString)
             } catch {
-                print(error)
+                // print(error)
             }
         })
             .disposed(by: disposeBag)
@@ -158,6 +158,7 @@ class WebSocketClient: NSObject {
 
     func connect() {
         webSocketTask.resume()
+        listen()
     }
 
     func disconnect() {
@@ -197,6 +198,7 @@ class WebSocketClient: NSObject {
             case .failure(let error):
                 self.delegate?.onError(client: self, error: error)
             }
+            self.listen()
         }
     }
 
