@@ -2,17 +2,26 @@
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 # RIBsTreeViewer
 
+![](./docs/logo.png)  
+
 Real Time viewing attached RIBs Tree on Browser
 
-# Carthage
+## Demo
 
-## Cartfile
+![](./docs/demo.gif)  
+
+## Carthage
+
+### Cartfile
 
 ```shell
 github "srea/RIBsTreeViewerClient"
 ```
 
-## Build Phase
+### Build Phase
+
+![](./docs/Carthage_BuildPhase.png)  
+![](./docs/Carthage_Embedded.png)
 
 Carthage CopyFrameworks (ONLY DEBUG)
 
@@ -22,7 +31,7 @@ Carthage CopyFrameworks (ONLY DEBUG)
  fi
 ```
 
-## Implementation
+### Implementation
 
 ```swift
 #if DEBUG
@@ -61,17 +70,31 @@ extension AppDelegate {
 #endif
 ```
 
-# WebSocket Server
+## WebSocket Server
 
 ```shell
 $ yarn install
 $ node index.js
 ```
 
-# Browser
+## Browser
 
 ```shell
 $ yarn install
 $ npx webpack
 $ open ./public/index.html
+```
+
+## Options
+
+### .webSocketURL
+
+```swift
+        #if DEBUG
+        if #available(iOS 13.0, *) {
+            ribsTreeViewer = RIBsTreeViewerImpl.init(router: launchRouter,
+                                                     option: [.webSocketURL: "ws://0.0.0.0:8080"])
+            ribsTreeViewer?.start()
+        }
+        #endif
 ```
