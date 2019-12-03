@@ -9,48 +9,53 @@
 import Foundation
 import RxSwift
 import RIBs
-import SocketIO
 
-public enum RIBsTreeViewerOptions: String {
-    case socketURL
+protocol RIBsTreeViewer {
+    func start()
 }
 
-public class RIBsTreeViewer {
+public enum RIBsTreeViewerOptions: String {
+    case webSocketURL
+}
+
+@available(iOS 13.0, *)
+public class RIBsTreeViewerImpl {
 
     private let router: Routing
-    private let socketClient: SocketClient
+    private let webSocket: WebSocketClient
     private let disposeBag = DisposeBag()
 
     public init(router: Routing, option: [RIBsTreeViewerOptions: String]? = nil) {
-        let url = option?[.socketURL]
+        let url = option?[.webSocketURL]
         self.router = router
 
         if let url = url {
-            self.socketClient = SocketClient.init(url: URL(string: url)!)
+            self.webSocket = WebSocketClient.init(url: URL(string: url)!)
         } else {
-            self.socketClient = SocketClient.init(url: nil)
+            self.webSocket = WebSocketClient.init(url: URL(string: "wc://0.0.0.0:8080")!)
         }
+        self.webSocket.delegate = self
+        self.webSocket.connect()
     }
 
     public func start() {
-        Observable<Int>.interval(0.2, scheduler: MainScheduler.instance)
+        Observable<Int>.interval(RxTimeInterval.microseconds(200), scheduler: MainScheduler.instance)
             .map { [unowned self] _ in
                 self.tree(router: self.router)
-            }
-            .distinctUntilChanged { a, b in
-                NSDictionary(dictionary: a).isEqual(to: b)
-            }
-            .subscribe(onNext: { [unowned self] in
-                self.socketClient.send(tree: $0)
-            })
-            .disposed(by: disposeBag)
-
-        socketClient.socket.on("take capture rib") { [unowned self] data, _ in
-            guard let routerName = data[0] as? String else { return }
-            if let data = self.captureView(from: routerName) {
-                self.socketClient.socket.emit("capture image", data.base64EncodedString())
-            }
         }
+        .distinctUntilChanged { a, b in
+            NSDictionary(dictionary: a).isEqual(to: b)
+        }
+        .subscribe(onNext: { [weak self] in
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: $0)
+                let jsonString = String(bytes: jsonData, encoding: .utf8)!
+                self?.webSocket.send(text: jsonString)
+            } catch {
+                print(error)
+            }
+        })
+            .disposed(by: disposeBag)
     }
 
     private func tree(router: Routing, appendImage: Bool = false) -> [String: Any] {
@@ -75,7 +80,10 @@ public class RIBsTreeViewer {
             return nil
         }
     }
+}
 
+@available(iOS 13.0, *)
+extension RIBsTreeViewerImpl {
     private func captureView(from targetRouter: String) -> Data? {
         guard let router = findRouter(target: targetRouter, router: router) as? ViewableRouting,
             let view = router.viewControllable.uiviewController.view,
@@ -97,32 +105,110 @@ public class RIBsTreeViewer {
     }
 }
 
-final class SocketClient {
-
-    let socket: SocketIOClient
-    private let manager: SocketManager
-    private var isConnected: Bool = false
-
-    init(url: URL?) {
-        self.manager = SocketManager(socketURL: url ?? URL(string: "http://localhost:8000")!,
-                                     config: [.log(false), .compress])
-        self.socket = manager.socket(forNamespace: "/ribs")
-        self.socket.on(clientEvent: .connect) {_, _ in
-            self.isConnected = true
-        }
-        self.socket.connect()
+@available(iOS 13.0, *)
+extension RIBsTreeViewerImpl: WebSocketClientDelegate {
+    func onConnected(client: WebSocketClient) {
     }
 
-    func send(tree: [String: Any]) {
-        guard isConnected else {
-            return
+    func onDisconnedted(client: WebSocketClient) {
+    }
+
+    func onMessage(client: WebSocketClient, text: String) {
+        // text == routerName
+        DispatchQueue.main.async {
+            if let data = self.captureView(from: text) {
+                self.webSocket.send(data: data)
+            }
         }
-        do {
-            let jsonData = try JSONSerialization.data(withJSONObject: tree)
-            let jsonString = String(bytes: jsonData, encoding: .utf8)!
-            socket.emit("tree_update", jsonString)
-        } catch {
-            print(error)
+    }
+
+    func onMessage(client: WebSocketClient, data: Data) {
+    }
+
+    func onError(client: WebSocketClient, error: Error) {
+    }
+}
+
+protocol WebSocketClientDelegate: class {
+    @available(iOS 13.0, *)
+    func onConnected(client: WebSocketClient)
+    @available(iOS 13.0, *)
+    func onDisconnedted(client: WebSocketClient)
+    @available(iOS 13.0, *)
+    func onMessage(client: WebSocketClient, text: String)
+    @available(iOS 13.0, *)
+    func onMessage(client: WebSocketClient, data: Data)
+    @available(iOS 13.0, *)
+    func onError(client: WebSocketClient, error: Error)
+}
+
+@available(iOS 13.0, *)
+class WebSocketClient: NSObject {
+
+    weak var delegate: WebSocketClientDelegate?
+    var webSocketTask: URLSessionWebSocketTask!
+    var urlSession: URLSession!
+    let delegateQueue = OperationQueue()
+
+    init(url: URL) {
+        super.init()
+        urlSession = URLSession(configuration: .default, delegate: self, delegateQueue: delegateQueue)
+        webSocketTask = urlSession.webSocketTask(with: url)
+    }
+
+    func connect() {
+        webSocketTask.resume()
+    }
+
+    func disconnect() {
+        webSocketTask.cancel()
+    }
+
+    func send(data: Data) {
+        webSocketTask.send(.data(data)) { error in
+            guard let error = error else {
+                return
+            }
+            self.delegate?.onError(client: self, error: error)
         }
+    }
+
+    func send(text: String) {
+        webSocketTask.send(.string(text)) { error in
+            guard let error = error else {
+                return
+            }
+            self.delegate?.onError(client: self, error: error)
+        }
+    }
+
+    private func listen() {
+        webSocketTask.receive { result in
+            switch result {
+            case .success(let message):
+                switch message {
+                case .data(let data):
+                    self.delegate?.onMessage(client: self, data: data)
+                case .string(let text):
+                    self.delegate?.onMessage(client: self, text: text)
+                @unknown default:
+                    fatalError()
+                }
+            case .failure(let error):
+                self.delegate?.onError(client: self, error: error)
+            }
+        }
+    }
+
+}
+
+@available(iOS 13.0, *)
+extension WebSocketClient: URLSessionWebSocketDelegate {
+    func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
+        self.delegate?.onConnected(client: self)
+    }
+
+    func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didCloseWith closeCode: URLSessionWebSocketTask.CloseCode, reason: Data?) {
+        self.delegate?.onDisconnedted(client: self)
     }
 }
