@@ -6,15 +6,19 @@
 
 Real Time viewing attached RIBs Tree on Browser
 
-# Carthage
+## Demo
 
-## Cartfile
+![](./docs/demo.gif)  
+
+## Carthage
+
+### Cartfile
 
 ```shell
 github "srea/RIBsTreeViewerClient"
 ```
 
-## Build Phase
+### Build Phase
 
 ![](./docs/Carthage_BuildPhase.png)  
 ![](./docs/Carthage_Embedded.png)
@@ -27,7 +31,7 @@ Carthage CopyFrameworks (ONLY DEBUG)
  fi
 ```
 
-## Implementation
+### Implementation
 
 ```swift
 #if DEBUG
@@ -66,14 +70,14 @@ extension AppDelegate {
 #endif
 ```
 
-# WebSocket Server
+## WebSocket Server
 
 ```shell
 $ yarn install
 $ node index.js
 ```
 
-# Browser
+## Browser
 
 ```shell
 $ yarn install
@@ -81,9 +85,9 @@ $ npx webpack
 $ open ./public/index.html
 ```
 
-# Options
+## Options
 
-## .webSocketURL
+### .webSocketURL
 
 ```swift
         #if DEBUG
