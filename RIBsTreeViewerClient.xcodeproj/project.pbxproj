@@ -3,14 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		C555E16421EF16520060A7B0 /* RIBsTreeViewerClient.h in Headers */ = {isa = PBXBuildFile; fileRef = C555E16221EF16520060A7B0 /* RIBsTreeViewerClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C555E16B21EF16790060A7B0 /* RIBsTreeViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C555E16A21EF16790060A7B0 /* RIBsTreeViewer.swift */; };
-		C555E18821EF244C0060A7B0 /* RIBs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C555E18421EF20F10060A7B0 /* RIBs.framework */; };
-		C555E18921EF245A0060A7B0 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C555E18621EF20FF0060A7B0 /* RxSwift.framework */; };
+		C555E18821EF244C0060A7B0 /* RIBs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C555E18421EF20F10060A7B0 /* RIBs.framework */; platformFilter = ios; };
+		C555E18921EF245A0060A7B0 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C555E18621EF20FF0060A7B0 /* RxSwift.framework */; platformFilter = ios; };
 		C5AC41E72396A0AD00F6A344 /* WebSocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AC41E62396A0AD00F6A344 /* WebSocketClient.swift */; };
 /* End PBXBuildFile section */
 
@@ -228,7 +228,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -286,11 +286,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -314,15 +315,20 @@
 				);
 				INFOPLIST_FILE = RIBsTreeViewerClient/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = co.minipro.app.RIBsTreeViewerClient;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -343,14 +349,19 @@
 				);
 				INFOPLIST_FILE = RIBsTreeViewerClient/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = co.minipro.app.RIBsTreeViewerClient;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

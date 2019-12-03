@@ -28,7 +28,7 @@ public class RIBsTreeViewer {
         if let url = url {
             self.webSocket = WebSocketTaskConnection.init(url: URL(string: url)!)
         } else {
-            self.webSocket = WebSocketTaskConnection.init(url: URL(string: "wc://localhost:8080")!)
+            self.webSocket = WebSocketTaskConnection.init(url: URL(string: "wc://0.0.0.0:8080")!)
         }
         self.webSocket.delegate = self
         self.webSocket.connect()
