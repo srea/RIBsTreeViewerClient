@@ -1,6 +1,8 @@
 import 'jqtree'
 import * as blobUtil from 'blob-util'
 
+require('file-loader?name=[name].[ext]!./index.html');
+
 const sock = new WebSocket("ws://0.0.0.0:8080");
 
 sock.addEventListener("message", e => {

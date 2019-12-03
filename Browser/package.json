@@ -9,6 +9,7 @@
     "ws": "^7.2.0"
   },
   "devDependencies": {
+    "file-loader": "^5.0.2",
     "jqtree": "^1.4.9",
     "jquery": "^3.4.1",
     "webpack": "^4.29.6",

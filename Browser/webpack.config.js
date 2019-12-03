@@ -6,7 +6,7 @@ module.exports = {
   entry: './src/app.js',
   output: {
     filename: 'bundle.js',
-    path: path.join(__dirname, 'public/js')
+    path: path.join(__dirname, 'public')
   },
   plugins: [
     new webpack.ProvidePlugin({
