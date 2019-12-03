@@ -10,15 +10,19 @@ import Foundation
 import RxSwift
 import RIBs
 
+protocol RIBsTreeViewer {
+    func start()
+}
+
 public enum RIBsTreeViewerOptions: String {
     case webSocketURL
 }
 
 @available(iOS 13.0, *)
-public class RIBsTreeViewer {
+public class RIBsTreeViewerImpl {
 
     private let router: Routing
-    private let webSocket: WebSocketTaskConnection
+    private let webSocket: WebSocketClient
     private let disposeBag = DisposeBag()
 
     public init(router: Routing, option: [RIBsTreeViewerOptions: String]? = nil) {
@@ -26,9 +30,9 @@ public class RIBsTreeViewer {
         self.router = router
 
         if let url = url {
-            self.webSocket = WebSocketTaskConnection.init(url: URL(string: url)!)
+            self.webSocket = WebSocketClient.init(url: URL(string: url)!)
         } else {
-            self.webSocket = WebSocketTaskConnection.init(url: URL(string: "wc://0.0.0.0:8080")!)
+            self.webSocket = WebSocketClient.init(url: URL(string: "wc://0.0.0.0:8080")!)
         }
         self.webSocket.delegate = self
         self.webSocket.connect()
@@ -76,7 +80,10 @@ public class RIBsTreeViewer {
             return nil
         }
     }
+}
 
+@available(iOS 13.0, *)
+extension RIBsTreeViewerImpl {
     private func captureView(from targetRouter: String) -> Data? {
         guard let router = findRouter(target: targetRouter, router: router) as? ViewableRouting,
             let view = router.viewControllable.uiviewController.view,
@@ -99,18 +106,14 @@ public class RIBsTreeViewer {
 }
 
 @available(iOS 13.0, *)
-extension RIBsTreeViewer: WebSocketConnectionDelegate {
-
-    func onConnected(connection: WebSocketConnection) {
+extension RIBsTreeViewerImpl: WebSocketClientDelegate {
+    func onConnected(client: WebSocketClient) {
     }
 
-    func onDisconnected(connection: WebSocketConnection, error: Error?) {
+    func onDisconnedted(client: WebSocketClient) {
     }
 
-    func onError(connection: WebSocketConnection, error: Error) {
-    }
-
-    func onMessage(connection: WebSocketConnection, text: String) {
+    func onMessage(client: WebSocketClient, text: String) {
         // text == routerName
         DispatchQueue.main.async {
             if let data = self.captureView(from: text) {
@@ -119,7 +122,91 @@ extension RIBsTreeViewer: WebSocketConnectionDelegate {
         }
     }
 
-    func onMessage(connection: WebSocketConnection, data: Data) {
+    func onMessage(client: WebSocketClient, data: Data) {
     }
 
+    func onError(client: WebSocketClient, error: Error) {
+    }
+}
+
+protocol WebSocketClientDelegate: class {
+    @available(iOS 13.0, *)
+    func onConnected(client: WebSocketClient)
+    @available(iOS 13.0, *)
+    func onDisconnedted(client: WebSocketClient)
+    @available(iOS 13.0, *)
+    func onMessage(client: WebSocketClient, text: String)
+    @available(iOS 13.0, *)
+    func onMessage(client: WebSocketClient, data: Data)
+    @available(iOS 13.0, *)
+    func onError(client: WebSocketClient, error: Error)
+}
+
+@available(iOS 13.0, *)
+class WebSocketClient: NSObject {
+
+    weak var delegate: WebSocketClientDelegate?
+    var webSocketTask: URLSessionWebSocketTask!
+    var urlSession: URLSession!
+    let delegateQueue = OperationQueue()
+
+    init(url: URL) {
+        super.init()
+        urlSession = URLSession(configuration: .default, delegate: self, delegateQueue: delegateQueue)
+        webSocketTask = urlSession.webSocketTask(with: url)
+    }
+
+    func connect() {
+        webSocketTask.resume()
+    }
+
+    func disconnect() {
+        webSocketTask.cancel()
+    }
+
+    func send(data: Data) {
+        webSocketTask.send(.data(data)) { error in
+            guard let error = error else {
+                return
+            }
+            self.delegate?.onError(client: self, error: error)
+        }
+    }
+
+    func send(text: String) {
+        webSocketTask.send(.string(text)) { error in
+            guard let error = error else {
+                return
+            }
+            self.delegate?.onError(client: self, error: error)
+        }
+    }
+
+    private func listen() {
+        webSocketTask.receive { result in
+            switch result {
+            case .success(let message):
+                switch message {
+                case .data(let data):
+                    self.delegate?.onMessage(client: self, data: data)
+                case .string(let text):
+                    self.delegate?.onMessage(client: self, text: text)
+                }
+            case .failure(let error):
+                self.delegate?.onError(client: self, error: error)
+            }
+        }
+    }
+
+}
+
+@available(iOS 13.0, *)
+extension WebSocketClient: URLSessionWebSocketDelegate {
+    func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
+        self.delegate?.onConnected(client: self)
+    }
+
+    func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didCloseWith closeCode: URLSessionWebSocketTask.CloseCode, reason: Data?) {
+        self.delegate?.onDisconnedted(client: self)
+    }
 }
