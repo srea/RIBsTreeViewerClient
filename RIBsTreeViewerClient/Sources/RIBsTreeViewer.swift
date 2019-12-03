@@ -191,6 +191,8 @@ class WebSocketClient: NSObject {
                     self.delegate?.onMessage(client: self, data: data)
                 case .string(let text):
                     self.delegate?.onMessage(client: self, text: text)
+                @unknown default:
+                    fatalError()
                 }
             case .failure(let error):
                 self.delegate?.onError(client: self, error: error)
