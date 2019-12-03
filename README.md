@@ -14,6 +14,9 @@ github "srea/RIBsTreeViewerClient"
 
 ## Build Phase
 
+![](./docs/Carthage_BuildPhase.png)  
+![](./docs/Carthage_Embedded.png)
+
 Carthage CopyFrameworks (ONLY DEBUG)
 
 ```shell
@@ -74,4 +77,18 @@ $ node index.js
 $ yarn install
 $ npx webpack
 $ open ./public/index.html
+```
+
+# Options
+
+## .webSocketURL
+
+```swift
+        #if DEBUG
+        if #available(iOS 13.0, *) {
+            ribsTreeViewer = RIBsTreeViewerImpl.init(router: launchRouter,
+                                                     option: [.webSocketURL: "ws://0.0.0.0:8080"])
+            ribsTreeViewer?.start()
+        }
+        #endif
 ```
