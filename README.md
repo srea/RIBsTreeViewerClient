@@ -34,16 +34,8 @@ Carthage CopyFrameworks (ONLY DEBUG)
 ### Implementation
 
 ```swift
-#if DEBUG
-import RIBsTreeViewerClient
-#endif
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    #if DEBUG
-    private var ribsTreeViewer: RIBsTreeViewer?
-    #endif
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let window = UIWindow(frame: UIScreen.main.bounds)
@@ -60,14 +52,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+// MARK: - RIBsTreeViewer
+
 #if DEBUG
+import RIBsTreeViewerClient
+
+@available(iOS 13.0, *)
+var RIBsTreeViewerHolder: RIBsTreeViewerImpl? = nil
+
 extension AppDelegate {
     private func startRIBsTreeViewer(launchRouter: Routing) {
-        ribsTreeViewer = RIBsTreeViewer.init(router: launchRouter)
-        ribsTreeViewer?.start()
+        if #available(iOS 13.0, *) {
+            RIBsTreeViewerHolder = RIBsTreeViewerImpl.init(router: launchRouter,
+                                                           option: [.webSocketURL: "ws://192.168.1.10:8080/"])
+            RIBsTreeViewerHolder?.start()
+        } else {
+            DEBUGLOG { "RIBsTreeViewer is not supported on this OS version." }
+        }
     }
 }
 #endif
+
 ```
 
 ## WebSocket Server
@@ -83,18 +88,4 @@ $ node index.js
 $ yarn install
 $ npx webpack
 $ open ./public/index.html
-```
-
-## Options
-
-### .webSocketURL
-
-```swift
-        #if DEBUG
-        if #available(iOS 13.0, *) {
-            ribsTreeViewer = RIBsTreeViewerImpl.init(router: launchRouter,
-                                                     option: [.webSocketURL: "ws://0.0.0.0:8080"])
-            ribsTreeViewer?.start()
-        }
-        #endif
 ```
