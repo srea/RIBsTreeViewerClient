@@ -42,10 +42,11 @@ public class RIBsTreeViewerImpl: RIBsTreeViewer {
 
         self.webSocket = WebSocketClient.init(url: URL(string: webSocketURL)!)
         self.webSocket.delegate = self
-        self.webSocket.connect()
     }
 
     public func start() {
+        webSocket.connect()
+
         let watchingInterval: Int
         if let interval = option?[.monitoringInterval] as? Int {
             watchingInterval = interval
