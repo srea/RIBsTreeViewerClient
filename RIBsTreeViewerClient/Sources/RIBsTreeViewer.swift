@@ -53,7 +53,7 @@ public class RIBsTreeViewerImpl: RIBsTreeViewer {
             watchingInterval = 1000
         }
 
-        watchingDisposable = Observable<Int>.interval(RxTimeInterval.microseconds(watchingInterval), scheduler: MainScheduler.instance)
+        watchingDisposable = Observable<Int>.interval(.milliseconds(watchingInterval), scheduler: MainScheduler.instance)
             .map { [unowned self] _ in
                 self.tree(router: self.router)
         }
