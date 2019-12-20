@@ -22,14 +22,14 @@ public enum RIBsTreeViewerOption {
 }
 
 @available(iOS 13.0, *)
-class RIBsTreeViewerImpl {
+public class RIBsTreeViewerImpl: RIBsTreeViewer {
 
     private let router: Routing
     private let webSocket: WebSocketClient
     private var watchingDisposable: Disposable?
     private let option: [RIBsTreeViewerOption: Any]?
 
-    init(router: Routing, option: [RIBsTreeViewerOption: Any]?) {
+    required public init(router: Routing, option: [RIBsTreeViewerOption: Any]?) {
         self.option = option
         self.router = router
 
@@ -45,7 +45,7 @@ class RIBsTreeViewerImpl {
         self.webSocket.connect()
     }
 
-    func start() {
+    public func start() {
         let watchingInterval: Int
         if let interval = option?[.monitoringInterval] as? Int {
             watchingInterval = interval
@@ -72,7 +72,7 @@ class RIBsTreeViewerImpl {
 
     }
 
-    func stop() {
+    public func stop() {
         watchingDisposable?.dispose()
         watchingDisposable = nil
         webSocket.disconnect()
