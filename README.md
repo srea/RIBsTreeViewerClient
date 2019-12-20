@@ -46,10 +46,8 @@ extension AppDelegate {
     private func startRIBsTreeViewer(launchRouter: Routing) {
         if #available(iOS 13.0, *) {
             RIBsTreeViewerHolder = RIBsTreeViewerImpl.init(router: launchRouter,
-                                                           option: [
-                                                         .webSocketURL: "ws://0.0.0.0:8080",
-                                                         .monitoringInterval: 1000]
-                                                         ])
+                                                           option: [.webSocketURL: "ws://0.0.0.0:8080",
+                                                                    .monitoringInterval: 1000]])
             RIBsTreeViewerHolder?.start()
         } else {
             DEBUGLOG { "RIBsTreeViewer is not supported OS version." }
@@ -57,7 +55,6 @@ extension AppDelegate {
     }
 }
 #endif
-
 ```
 
 ## WebSocket Server
