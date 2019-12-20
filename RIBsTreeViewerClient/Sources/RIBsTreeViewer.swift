@@ -10,36 +10,50 @@ import Foundation
 import RxSwift
 import RIBs
 
-protocol RIBsTreeViewer {
+public protocol RIBsTreeViewer {
+    init(router: Routing, option: [RIBsTreeViewerOption: Any]?)
     func start()
+    func stop()
 }
 
-public enum RIBsTreeViewerOptions: String {
+public enum RIBsTreeViewerOption {
     case webSocketURL
+    case monitoringInterval
 }
 
 @available(iOS 13.0, *)
-public class RIBsTreeViewerImpl {
+public class RIBsTreeViewerImpl: RIBsTreeViewer {
 
     private let router: Routing
     private let webSocket: WebSocketClient
-    private let disposeBag = DisposeBag()
+    private var watchingDisposable: Disposable?
+    private let option: [RIBsTreeViewerOption: Any]?
 
-    public init(router: Routing, option: [RIBsTreeViewerOptions: String]? = nil) {
-        let url = option?[.webSocketURL]
+    required public init(router: Routing, option: [RIBsTreeViewerOption: Any]?) {
+        self.option = option
         self.router = router
 
-        if let url = url {
-            self.webSocket = WebSocketClient.init(url: URL(string: url)!)
+        let webSocketURL: String
+        if let url = option?[.webSocketURL] as? String {
+            webSocketURL = url
         } else {
-            self.webSocket = WebSocketClient.init(url: URL(string: "ws://0.0.0.0:8080")!)
+            webSocketURL = "ws://0.0.0.0:8080"
         }
+
+        self.webSocket = WebSocketClient.init(url: URL(string: webSocketURL)!)
         self.webSocket.delegate = self
         self.webSocket.connect()
     }
 
     public func start() {
-        Observable<Int>.interval(RxTimeInterval.microseconds(200), scheduler: MainScheduler.instance)
+        let watchingInterval: Int
+        if let interval = option?[.monitoringInterval] as? Int {
+            watchingInterval = interval
+        } else {
+            watchingInterval = 1000
+        }
+
+        watchingDisposable = Observable<Int>.interval(.milliseconds(watchingInterval), scheduler: MainScheduler.instance)
             .map { [unowned self] _ in
                 self.tree(router: self.router)
         }
@@ -52,10 +66,16 @@ public class RIBsTreeViewerImpl {
                 let jsonString = String(bytes: jsonData, encoding: .utf8)!
                 self?.webSocket.send(text: jsonString)
             } catch {
-                // print(error)
+                // TODO: Error Handling
             }
         })
-            .disposed(by: disposeBag)
+
+    }
+
+    public func stop() {
+        watchingDisposable?.dispose()
+        watchingDisposable = nil
+        webSocket.disconnect()
     }
 
     private func tree(router: Routing, appendImage: Bool = false) -> [String: Any] {
