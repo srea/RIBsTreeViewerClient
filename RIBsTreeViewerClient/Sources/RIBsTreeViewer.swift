@@ -240,6 +240,3 @@ extension WebSocketClient: URLSessionWebSocketDelegate {
         self.delegate?.onDisconnedted(client: self)
     }
 }
-
-#endif
-
