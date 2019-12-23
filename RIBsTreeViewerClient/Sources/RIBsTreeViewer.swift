@@ -42,10 +42,11 @@ public class RIBsTreeViewerImpl: RIBsTreeViewer {
 
         self.webSocket = WebSocketClient.init(url: URL(string: webSocketURL)!)
         self.webSocket.delegate = self
-        self.webSocket.connect()
     }
 
     public func start() {
+        webSocket.connect()
+
         let watchingInterval: Int
         if let interval = option?[.monitoringInterval] as? Int {
             watchingInterval = interval
@@ -65,8 +66,7 @@ public class RIBsTreeViewerImpl: RIBsTreeViewer {
                 let jsonData = try JSONSerialization.data(withJSONObject: $0)
                 let jsonString = String(bytes: jsonData, encoding: .utf8)!
                 self?.webSocket.send(text: jsonString)
-            } catch {
-                // TODO: Error Handling
+            } catch let error {
             }
         })
 
@@ -169,20 +169,25 @@ class WebSocketClient: NSObject {
     var webSocketTask: URLSessionWebSocketTask!
     var urlSession: URLSession!
     let delegateQueue = OperationQueue()
+    let url: URL
 
     init(url: URL) {
+        self.url = url
         super.init()
-        urlSession = URLSession(configuration: .default, delegate: self, delegateQueue: delegateQueue)
-        webSocketTask = urlSession.webSocketTask(with: url)
+        self.urlSession = URLSession(configuration: .default, delegate: self, delegateQueue: delegateQueue)
+        self.webSocketTask = urlSession.webSocketTask(with: url)
     }
 
     func connect() {
+        if webSocketTask.state == .completed {
+            webSocketTask = urlSession.webSocketTask(with: url)
+        }
         webSocketTask.resume()
         listen()
     }
 
     func disconnect() {
-        webSocketTask.cancel()
+        webSocketTask.cancel(with: .goingAway, reason: nil)
     }
 
     func send(data: Data) {
@@ -204,7 +209,8 @@ class WebSocketClient: NSObject {
     }
 
     private func listen() {
-        webSocketTask.receive { result in
+        webSocketTask.receive { [weak self] result in
+            guard let `self` = self else { return }
             switch result {
             case .success(let message):
                 switch message {
@@ -234,3 +240,6 @@ extension WebSocketClient: URLSessionWebSocketDelegate {
         self.delegate?.onDisconnedted(client: self)
     }
 }
+
+#endif
+
