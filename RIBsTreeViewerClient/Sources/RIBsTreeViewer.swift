@@ -11,14 +11,14 @@ import RxSwift
 import RIBs
 
 public protocol RIBsTreeViewer {
-    init(router: Routing, option: [RIBsTreeViewerOption: Any]?)
+    init(router: Routing, options: [RIBsTreeViewerOption]?)
     func start()
     func stop()
 }
 
 public enum RIBsTreeViewerOption {
-    case webSocketURL
-    case monitoringInterval
+    case webSocketURL(String)
+    case monitoringIntervalMillis(Int)
 }
 
 @available(iOS 13.0, *)
@@ -26,35 +26,34 @@ public class RIBsTreeViewerImpl: RIBsTreeViewer {
 
     private let router: Routing
     private let webSocket: WebSocketClient
+    private let monitoringIntervalMillis: Int
     private var watchingDisposable: Disposable?
-    private let option: [RIBsTreeViewerOption: Any]?
 
-    required public init(router: Routing, option: [RIBsTreeViewerOption: Any]?) {
-        self.option = option
+    required public init(router: Routing, options: [RIBsTreeViewerOption]?) {
         self.router = router
 
-        let webSocketURL: String
-        if let url = option?[.webSocketURL] as? String {
-            webSocketURL = url
-        } else {
-            webSocketURL = "ws://0.0.0.0:8080"
-        }
+        var webSocketURLString = "ws://0.0.0.0:8080"
+        var monitoringIntervalMillis = 1000
 
-        self.webSocket = WebSocketClient.init(url: URL(string: webSocketURL)!)
+        options?.forEach({ option in
+            switch option {
+            case .webSocketURL(let url):
+                webSocketURLString = url
+                break
+            case .monitoringIntervalMillis(let intervalMillis):
+                monitoringIntervalMillis = intervalMillis
+                break
+            }
+        })
+
+        self.monitoringIntervalMillis = monitoringIntervalMillis
+        self.webSocket = WebSocketClient.init(url: URL(string: webSocketURLString)!)
         self.webSocket.delegate = self
     }
 
     public func start() {
         webSocket.connect()
-
-        let watchingInterval: Int
-        if let interval = option?[.monitoringInterval] as? Int {
-            watchingInterval = interval
-        } else {
-            watchingInterval = 1000
-        }
-
-        watchingDisposable = Observable<Int>.interval(.milliseconds(watchingInterval), scheduler: MainScheduler.instance)
+        watchingDisposable = Observable<Int>.interval(.milliseconds(monitoringIntervalMillis), scheduler: MainScheduler.instance)
             .map { [unowned self] _ in
                 self.tree(router: self.router)
         }
