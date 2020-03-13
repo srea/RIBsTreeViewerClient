@@ -65,7 +65,7 @@ public class RIBsTreeViewerImpl: RIBsTreeViewer {
                 let jsonData = try JSONSerialization.data(withJSONObject: $0)
                 let jsonString = String(bytes: jsonData, encoding: .utf8)!
                 self?.webSocket.send(text: jsonString)
-            } catch let error {
+            } catch {
             }
         })
 
