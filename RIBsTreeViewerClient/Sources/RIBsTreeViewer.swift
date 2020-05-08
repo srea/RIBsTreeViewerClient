@@ -129,7 +129,7 @@ extension RIBsTreeViewerImpl: WebSocketClientDelegate {
     func onConnected(client: WebSocketClient) {
     }
 
-    func onDisconnedted(client: WebSocketClient) {
+    func onDisconnected(client: WebSocketClient) {
     }
 
     func onMessage(client: WebSocketClient, text: String) {
@@ -152,7 +152,7 @@ protocol WebSocketClientDelegate: class {
     @available(iOS 13.0, *)
     func onConnected(client: WebSocketClient)
     @available(iOS 13.0, *)
-    func onDisconnedted(client: WebSocketClient)
+    func onDisconnected(client: WebSocketClient)
     @available(iOS 13.0, *)
     func onMessage(client: WebSocketClient, text: String)
     @available(iOS 13.0, *)
@@ -236,6 +236,6 @@ extension WebSocketClient: URLSessionWebSocketDelegate {
     }
 
     func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didCloseWith closeCode: URLSessionWebSocketTask.CloseCode, reason: Data?) {
-        self.delegate?.onDisconnedted(client: self)
+        self.delegate?.onDisconnected(client: self)
     }
 }
