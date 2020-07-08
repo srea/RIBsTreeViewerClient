@@ -1,3 +1,17 @@
+.swiftpm
+
+# Created by https://www.toptal.com/developers/gitignore/api/swiftpm
+# Edit at https://www.toptal.com/developers/gitignore?templates=swiftpm
+
+### SwiftPM ###
+Packages
+.build/
+xcuserdata
+DerivedData/
+*.xcodeproj
+
+
+# End of https://www.toptal.com/developers/gitignore/api/swiftpm
 
 # Created by https://www.gitignore.io/api/node,swift,xcode
 # Edit at https://www.gitignore.io/?templates=node,swift,xcode
