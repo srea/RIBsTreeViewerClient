@@ -1,4 +1,4 @@
-// swift-tools-version:5.2
+// swift-tools-version:5.1
 import PackageDescription
 
 let package = Package(
@@ -9,7 +9,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/ReactiveX/RxSwift.git", from: "5.1.0"),
-        .package(url: "https://github.com/uber/RIBs.git", from: "master"),
+        .package(url: "https://github.com/uber/RIBs.git", .branch("master")),
     ],
     targets: [
         .target(
