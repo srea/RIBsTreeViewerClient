@@ -24,7 +24,9 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
 
     /// The window.
     public var window: UIWindow?
-
+    
+    private var ribsTreeViewer: RIBsTreeViewer? = nil
+    
     /// Tells the delegate that the launch process is almost done and the app is almost ready to run.
     ///
     /// - parameter application: Your singleton app object.
@@ -40,8 +42,8 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         let launchRouter = result.launchRouter
         self.launchRouter = launchRouter
         urlHandler = result.urlHandler
-        launchRouter.launchFromWindow(window)
-
+        launchRouter.launch(from: window)
+        startRIBsTreeViewer(launchRouter: launchRouter)
         return true
     }
 
@@ -59,3 +61,23 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
 protocol UrlHandler: class {
     func handle(_ url: URL)
 }
+
+
+// MARK: - RIBsTreeViewer
+
+#if DEBUG
+import RIBsTreeViewerClient
+
+extension AppDelegate {
+    private func startRIBsTreeViewer(launchRouter: Routing) {
+        if #available(iOS 13.0, *) {
+            ribsTreeViewer = RIBsTreeViewerImpl.init(router: launchRouter,
+                                                     options: [.webSocketURL("ws://0.0.0.0:8080"),
+                                                               .monitoringIntervalMillis(1000)])
+            ribsTreeViewer?.start()
+        } else {
+            // RIBsTreeViewer is not supported OS version.
+        }
+    }
+}
+#endif

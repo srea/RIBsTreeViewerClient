@@ -3,12 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		7EDD59501FA13579005EC8B2 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EDD594F1FA13579005EC8B2 /* Default-568h@2x.png */; };
-		AEFA38604D7D1E4A08E9A7FA /* Pods_TicTacToe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B99EABB5C8D25341027C05C5 /* Pods_TicTacToe.framework */; };
 		E90A68681FB7069A00D303EE /* LoggedInActionableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90A68671FB7069A00D303EE /* LoggedInActionableItem.swift */; };
 		E90A686A1FB7074400D303EE /* LaunchGameWorkflow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90A68691FB7074400D303EE /* LaunchGameWorkflow.swift */; };
 		E9C86DA01FA38A0A00B61DF6 /* RandomWinBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C86D9A1FA389EC00B61DF6 /* RandomWinBuilder.swift */; };
@@ -51,7 +50,26 @@
 		E9CB1D681F9730F300D84847 /* TicTacToeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CB1D3F1F972FE400D84847 /* TicTacToeInteractor.swift */; };
 		E9CB1D691F9730F300D84847 /* TicTacToeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CB1D401F972FE400D84847 /* TicTacToeRouter.swift */; };
 		E9CB1D6A1F9730F300D84847 /* TicTacToeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CB1D411F972FE400D84847 /* TicTacToeViewController.swift */; };
+		FE46D96424B5832900AD7D0E /* Pods_TicTacToe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B99EABB5C8D25341027C05C5 /* Pods_TicTacToe.framework */; };
+		FE46D96524B5832900AD7D0E /* Pods_TicTacToe.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B99EABB5C8D25341027C05C5 /* Pods_TicTacToe.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FE46D96C24B5857900AD7D0E /* RIBsTreeViewerClient.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE46D96B24B5857900AD7D0E /* RIBsTreeViewerClient.xcframework */; };
+		FE46D96D24B5857A00AD7D0E /* RIBsTreeViewerClient.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FE46D96B24B5857900AD7D0E /* RIBsTreeViewerClient.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		FE46D96624B5832900AD7D0E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FE46D96D24B5857A00AD7D0E /* RIBsTreeViewerClient.xcframework in Embed Frameworks */,
+				FE46D96524B5832900AD7D0E /* Pods_TicTacToe.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		7EDD594F1FA13579005EC8B2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -102,6 +120,7 @@
 		E9CB1D4F1F972FE500D84847 /* OffGameInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffGameInteractor.swift; sourceTree = "<group>"; };
 		E9CB1D501F972FE500D84847 /* OffGameRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffGameRouter.swift; sourceTree = "<group>"; };
 		E9CB1D511F972FE500D84847 /* OffGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffGameViewController.swift; sourceTree = "<group>"; };
+		FE46D96B24B5857900AD7D0E /* RIBsTreeViewerClient.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = RIBsTreeViewerClient.xcframework; path = ../../Products/RIBsTreeViewerClient.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,7 +128,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AEFA38604D7D1E4A08E9A7FA /* Pods_TicTacToe.framework in Frameworks */,
+				FE46D96C24B5857900AD7D0E /* RIBsTreeViewerClient.xcframework in Frameworks */,
+				FE46D96424B5832900AD7D0E /* Pods_TicTacToe.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,6 +313,7 @@
 		F5205CCF508911BE388D8406 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FE46D96B24B5857900AD7D0E /* RIBsTreeViewerClient.xcframework */,
 				B99EABB5C8D25341027C05C5 /* Pods_TicTacToe.framework */,
 			);
 			name = Frameworks;
@@ -310,6 +331,7 @@
 				E9894B471F972CC500688FCB /* Frameworks */,
 				E9894B481F972CC500688FCB /* Resources */,
 				01C0219C62DB08840E36B78D /* [CP] Embed Pods Frameworks */,
+				FE46D96624B5832900AD7D0E /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -371,19 +393,12 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TicTacToe/Pods-TicTacToe-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/RIBs/RIBs.framework",
-				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TicTacToe/Pods-TicTacToe-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RIBs.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TicTacToe/Pods-TicTacToe-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -570,7 +585,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 4.0;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -582,7 +598,11 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = TicTacToe/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ubercab.TicTacToe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -596,7 +616,11 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = TicTacToe/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ubercab.TicTacToe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
