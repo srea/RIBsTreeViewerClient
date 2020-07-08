@@ -8,7 +8,7 @@ let package = Package(
         .library(name: "RIBsTreeViewerClient", targets: ["RIBsTreeViewerClient"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/ReactiveX/RxSwift.git", from: "5.1.0"),
+        .package(url: "https://github.com/ReactiveX/RxSwift.git", from: "5.1.1"),
         .package(url: "https://github.com/uber/RIBs.git", .branch("master")),
     ],
     targets: [
