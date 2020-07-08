@@ -14,7 +14,8 @@ let package = Package(
         targets: [
         .target(
             name: "RIBsTreeViewerClient",
-            path: "./RIBsTreeViewerClient/Sources"
+            path: "./RIBsTreeViewerClient/Sources",
+            dependencies: ["RxSwift", "RIBs"]
         ),
     ]
 )
