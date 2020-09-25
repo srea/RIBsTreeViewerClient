@@ -224,7 +224,9 @@ class WebSocketClient: NSObject {
             case .failure(let error):
                 self.delegate?.onError(client: self, error: error)
             }
-            self.listen()
+          DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+            self?.listen()
+          }
         }
     }
 
