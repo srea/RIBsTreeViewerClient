@@ -17,10 +17,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: yarn
-          cache-dependency-path: Browser/yarn.lock
-      - run: yarn install --frozen-lockfile
-      - run: yarn build
+          cache: npm
+          cache-dependency-path: Browser/package-lock.json
+      - run: npm ci
+      - run: npm run build
 
   websocket-server:
     runs-on: ubuntu-latest

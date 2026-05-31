@@ -11,7 +11,7 @@ generate_xcframeworks: ## Regenerate Products/RIBsTreeViewerClient.xcframework (
 	@./scripts/generate_xcframeworks.sh
 
 websocket-server: ## Start the WebSocket relay (port 8080).
-	@cd WebSocketServer && npm install && npm start
+	@cd WebSocketServer && npm ci && npm start
 
 browser-build: ## Build the browser viewer bundle.
-	@cd Browser && yarn install && yarn build
+	@cd Browser && npm ci && npm run build
