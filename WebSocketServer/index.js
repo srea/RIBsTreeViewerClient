@@ -1,13 +1,16 @@
-var server = require('ws').Server;
-var s = new server({ port: 8080 });
+const { WebSocketServer } = require('ws');
 
-s.on('connection', function (ws) {
-    ws.on('message', function (message) {
-        console.log(message);
-        s.clients.forEach(function (client) {
-            client.send(message);
+const PORT = Number(process.env.PORT) || 8080;
+const server = new WebSocketServer({ port: PORT });
+
+server.on('connection', (ws) => {
+    ws.on('message', (message) => {
+        server.clients.forEach((client) => {
+            if (client !== ws && client.readyState === client.OPEN) {
+                client.send(message);
+            }
         });
     });
-    ws.on('close', function () {
-    });
 });
+
+console.log(`RIBsTreeViewer WebSocket relay listening on ws://0.0.0.0:${PORT}`);

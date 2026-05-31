@@ -40,33 +40,40 @@ public class RIBsTreeViewerImpl: RIBsTreeViewer {
             switch option {
             case .webSocketURL(let url):
                 webSocketURLString = url
-                break
             case .monitoringIntervalMillis(let intervalMillis):
                 monitoringIntervalMillis = intervalMillis
-                break
             }
         })
 
+        guard let url = URL(string: webSocketURLString) else {
+            fatalError("RIBsTreeViewer: invalid webSocketURL: \(webSocketURLString)")
+        }
+
         self.monitoringIntervalMillis = monitoringIntervalMillis
-        self.webSocket = WebSocketClient.init(url: URL(string: webSocketURLString)!)
+        self.webSocket = WebSocketClient(url: url)
         self.webSocket.delegate = self
     }
 
     public func start() {
         webSocket.connect()
         watchingDisposable = Observable<Int>.interval(.milliseconds(monitoringIntervalMillis), scheduler: MainScheduler.instance)
-            .map { [unowned self] _ in
-                self.tree(router: self.router)
-        }
+            .compactMap { [weak self] _ -> [String: Any]? in
+                guard let self = self else { return nil }
+                return self.tree(router: self.router)
+            }
         .distinctUntilChanged { a, b in
             NSDictionary(dictionary: a).isEqual(to: b)
         }
-        .subscribe(onNext: { [weak self] in
+        .subscribe(onNext: { [weak self] tree in
+            guard let self = self else { return }
             do {
-                let jsonData = try JSONSerialization.data(withJSONObject: $0)
-                let jsonString = String(bytes: jsonData, encoding: .utf8)!
-                self?.webSocket.send(text: jsonString)
+                let jsonData = try JSONSerialization.data(withJSONObject: tree)
+                guard let jsonString = String(data: jsonData, encoding: .utf8) else { return }
+                self.webSocket.send(text: jsonString)
             } catch {
+                #if DEBUG
+                print("RIBsTreeViewer: failed to serialize tree: \(error)")
+                #endif
             }
         })
 
@@ -149,7 +156,7 @@ extension RIBsTreeViewerImpl: WebSocketClientDelegate {
     }
 }
 
-protocol WebSocketClientDelegate: class {
+protocol WebSocketClientDelegate: AnyObject {
     @available(iOS 13.0, *)
     func onConnected(client: WebSocketClient)
     @available(iOS 13.0, *)

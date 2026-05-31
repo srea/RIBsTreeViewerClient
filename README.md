@@ -91,23 +91,23 @@ extension AppDelegate {
 #endif
 ```
 
-### Installing 
-
-```
-$ npm install yarn
-```
-
-### Starting the websocke server
+### Starting the WebSocket relay server
 
 ```shell
-$ npx yarn install
-$ node index.js
+cd WebSocketServer
+npm install
+npm start
 ```
 
-## Open the page.
+The server listens on port `8080` by default. Override with `PORT=9090 npm start`.
+
+### Build and open the browser viewer
 
 ```shell
-$ npx yarn install
-$ npx webpack
-$ open ./public/index.html
+cd Browser
+yarn install
+yarn build
+open ./public/index.html
 ```
+
+For development, run `yarn watch` in `Browser/` to rebuild on source changes.
