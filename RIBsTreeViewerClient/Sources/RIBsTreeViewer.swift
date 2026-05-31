@@ -22,7 +22,7 @@ public enum RIBsTreeViewerOption {
     case monitoringIntervalMillis(Int)
 }
 
-@available(iOS 13.0, *)
+@available(iOS 15.0, *)
 public class RIBsTreeViewerImpl: RIBsTreeViewer {
 
     private let router: Routing
@@ -109,7 +109,7 @@ public class RIBsTreeViewerImpl: RIBsTreeViewer {
     }
 }
 
-@available(iOS 13.0, *)
+@available(iOS 15.0, *)
 extension RIBsTreeViewerImpl {
     private func captureView(from targetRouter: String) -> Data? {
         guard let router = findRouter(target: targetRouter, router: router) as? ViewableRouting,
@@ -132,7 +132,7 @@ extension RIBsTreeViewerImpl {
     }
 }
 
-@available(iOS 13.0, *)
+@available(iOS 15.0, *)
 extension RIBsTreeViewerImpl: WebSocketClientDelegate {
     func onConnected(client: WebSocketClient) {
     }
@@ -157,19 +157,19 @@ extension RIBsTreeViewerImpl: WebSocketClientDelegate {
 }
 
 protocol WebSocketClientDelegate: AnyObject {
-    @available(iOS 13.0, *)
+    @available(iOS 15.0, *)
     func onConnected(client: WebSocketClient)
-    @available(iOS 13.0, *)
+    @available(iOS 15.0, *)
     func onDisconnected(client: WebSocketClient)
-    @available(iOS 13.0, *)
+    @available(iOS 15.0, *)
     func onMessage(client: WebSocketClient, text: String)
-    @available(iOS 13.0, *)
+    @available(iOS 15.0, *)
     func onMessage(client: WebSocketClient, data: Data)
-    @available(iOS 13.0, *)
+    @available(iOS 15.0, *)
     func onError(client: WebSocketClient, error: Error)
 }
 
-@available(iOS 13.0, *)
+@available(iOS 15.0, *)
 class WebSocketClient: NSObject {
 
     weak var delegate: WebSocketClientDelegate?
@@ -239,7 +239,7 @@ class WebSocketClient: NSObject {
 
 }
 
-@available(iOS 13.0, *)
+@available(iOS 15.0, *)
 extension WebSocketClient: URLSessionWebSocketDelegate {
     func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
         self.delegate?.onConnected(client: self)
