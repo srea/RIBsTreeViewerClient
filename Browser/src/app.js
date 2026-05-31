@@ -8,7 +8,7 @@ const sock = new WebSocket("ws://0.0.0.0:8080");
 sock.addEventListener("message", e => {
     if (typeof e.data === "string") {
         try {
-            let parsedJSON = JSON.parse("[" + e.data + "]");
+            const parsedJSON = [JSON.parse(e.data)];
             $('#tree').remove()
             $("<div>", {
                 id: 'tree'

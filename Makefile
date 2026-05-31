@@ -9,3 +9,9 @@ setup: ## setup
 
 generate_xcframeworks: ## Generate XCFrameworks.
 	@./scripts/generate_xcframeworks.sh
+
+websocket-server: ## Start the WebSocket relay (port 8080).
+	@cd WebSocketServer && npm install && npm start
+
+browser-build: ## Build the browser viewer bundle.
+	@cd Browser && yarn install && yarn build
