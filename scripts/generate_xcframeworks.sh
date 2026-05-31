@@ -4,12 +4,11 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
-if [[ ! -d Carthage/Build/RIBs.xcframework ]]; then
-  echo "Run 'make setup' before generating XCFrameworks."
-  exit 1
-fi
-
 rm -rf ./Products/RIBsTreeViewerClient.xcframework build
+
+xcodebuild -resolvePackageDependencies \
+  -project RIBsTreeViewerClient.xcodeproj \
+  -scheme RIBsTreeViewerClient
 
 COMMON_FLAGS=(
   BUILD_LIBRARY_FOR_DISTRIBUTION=YES

@@ -386,7 +386,7 @@
         "usr": "s:20RIBsTreeViewerClient0abC4ImplC",
         "mangledName": "$s20RIBsTreeViewerClient0abC4ImplC",
         "moduleName": "RIBsTreeViewerClient",
-        "intro_iOS": "13.0",
+        "intro_iOS": "15.0",
         "declAttributes": [
           "AccessControl",
           "Available"
