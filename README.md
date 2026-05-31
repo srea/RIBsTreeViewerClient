@@ -1,134 +1,119 @@
-![](https://img.shields.io/github/license/srea/RIBsTreeViewerClient.svg) 
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+![](https://img.shields.io/github/license/srea/RIBsTreeViewerClient.svg)
+
 # RIBsTreeViewer
 
-![](./docs/logo.png)  
+![](./docs/logo.png)
 
 Real Time viewing attached RIBs Tree on Browser
 
 ## Demo
 
-![](./docs/demo.gif)  
+![](./docs/demo.gif)
 
-## Using the Libraries
+## Requirements
+
+- **iOS 15+** (aligned with [RIBs-iOS](https://github.com/uber/RIBs-iOS) 1.0)
+- Xcode 15+
+- Node.js 20+ (WebSocket relay and browser viewer)
+
+## Quick start (local tooling)
+
+From a clean clone — **no Carthage**:
+
+```shell
+./scripts/verify.sh
+```
+
+Then run the viewer stack in three terminals:
+
+```shell
+# 1. WebSocket relay (port 8080)
+cd WebSocketServer && npm install && npm start
+
+# 2. Browser tree UI
+cd Browser && yarn install && yarn build && open ./public/index.html
+
+# 3. Your iOS app (DEBUG): attach RIBsTreeViewer to the launch router — see below
+```
+
+## Using the library in your app
+
+### Swift Package Manager (recommended)
+
+In Xcode: **File → Add Package Dependencies** → `https://github.com/srea/RIBsTreeViewerClient.git`
+
+Or in `Package.swift`:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/srea/RIBsTreeViewerClient.git", branch: "master"),
+],
+targets: [
+    .target(
+        name: "YourApp",
+        dependencies: [
+            .product(name: "RIBsTreeViewerClient", package: "RIBsTreeViewerClient"),
+        ]
+    ),
+]
+```
+
+This pulls [RIBs-iOS](https://github.com/uber/RIBs-iOS) 1.0+ and RxSwift 6.x automatically.
 
 ### XCFramework
 
-Add the xcframework to your project。
+Add the prebuilt binary (no Carthage required for consumers):
 
 ```
 ./Products/RIBsTreeViewerClient.xcframework
 ```
 
-### Swift Package Manager (in progress)
-
-SPM integration is being rolled out in [#38](https://github.com/srea/RIBsTreeViewerClient/issues/38). For local development of this repo:
-
-```swift
-// Package.swift dependency (consumer apps)
-.package(url: "https://github.com/srea/RIBsTreeViewerClient.git", from: "1.0.7"),
-```
-
-Or add this package in Xcode via **File → Add Package Dependencies** (once a tagged release includes SPM support).
-
-Requirements when using SPM: **iOS 15+**, [RIBs-iOS](https://github.com/uber/RIBs-iOS) 1.0+, RxSwift 6.x.
-
-### CocoaPods
-
-This is not supported because the RIBs do not provide an up-to-date PodSpec, making it difficult to resolve dependencies.
-
-### Carthage
+Regenerate after changing library sources:
 
 ```shell
-github "srea/RIBsTreeViewerClient"
+make generate_xcframeworks
 ```
 
-```
-$ make setup
-```
+### Carthage (legacy)
 
-Requires Xcode 15+ and [Carthage](https://github.com/Carthage/Carthage). Dependencies are built as XCFrameworks (Apple Silicon–compatible). Minimum iOS: **13.0** (library source targets **15.0+** when using SPM — see [#38](https://github.com/srea/RIBsTreeViewerClient/issues/38)).
+Carthage is **deprecated** for this repo ([#38](https://github.com/srea/RIBsTreeViewerClient/issues/38)). Prefer SPM or the XCFramework above.
 
-To regenerate the prebuilt `Products/RIBsTreeViewerClient.xcframework` after source changes:
-
-```
-$ make generate_xcframeworks
-```
-
-#### Build Phase
-
-![](./docs/Carthage_BuildPhase.png)  
-![](./docs/Carthage_Embedded.png)
-
-Carthage CopyFrameworks (ONLY DEBUG)
-
-```shell
- if [ ${CONFIGURATION%%-*} == "Debug" ]; then
-    /usr/local/bin/carthage copy-frameworks
- fi
-```
-
-## Basic setup
+## Basic setup (iOS app, DEBUG)
 
 ```swift
-@UIApplicationMain
-public class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    private var ribsTreeViewer: RIBsTreeViewer? = nil
-    
-    public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        let window = UIWindow(frame: UIScreen.main.bounds)
-        self.window = window
-
-        let result = RootBuilder(dependency: AppComponent()).build()
-        let launchRouter = result.launchRouter
-        self.launchRouter = launchRouter
-        urlHandler = result.urlHandler
-        launchRouter.launch(from: window)
-        startRIBsTreeViewer(launchRouter: launchRouter)
-        return true
-    }
-}
-```
-
-```swift
-// MARK: - RIBsTreeViewer
-
 #if DEBUG
 import RIBsTreeViewerClient
 
 extension AppDelegate {
     private func startRIBsTreeViewer(launchRouter: Routing) {
         if #available(iOS 15.0, *) {
-            ribsTreeViewer = RIBsTreeViewerImpl.init(router: launchRouter,
-                                                     options: [.webSocketURL("ws://0.0.0.0:8080"),
-                                                               .monitoringIntervalMillis(1000)])
-            ribsTreeViewer?.start()
-        } else {
-            // RIBsTreeViewer is not supported OS version.
+            let viewer = RIBsTreeViewerImpl(
+                router: launchRouter,
+                options: [
+                    .webSocketURL("ws://127.0.0.1:8080"),
+                    .monitoringIntervalMillis(1000),
+                ]
+            )
+            viewer.start()
         }
     }
 }
 #endif
 ```
 
-### Starting the WebSocket relay server
+Use `127.0.0.1` when running the simulator on the same Mac as the WebSocket relay.
 
-```shell
-cd WebSocketServer
-npm install
-npm start
-```
+## Development commands
 
-The server listens on port `8080` by default. Override with `PORT=9090 npm start`.
+| Command | Description |
+|---------|-------------|
+| `./scripts/verify.sh` | Full usability check (SPM, Xcode, Browser, WebSocket) |
+| `./scripts/build-spm-package.sh` | Build library via SwiftPM only |
+| `make generate_xcframeworks` | Rebuild `Products/*.xcframework` |
+| `make browser-build` | Build browser bundle |
+| `make websocket-server` | Start WebSocket relay |
 
-### Build and open the browser viewer
+## Migration notes
 
-```shell
-cd Browser
-yarn install
-yarn build
-open ./public/index.html
-```
-
-For development, run `yarn watch` in `Browser/` to rebuild on source changes.
+- RIBs iOS now lives at [uber/RIBs-iOS](https://github.com/uber/RIBs-iOS) (not `uber/RIBs`).
+- Minimum iOS is **15** for SPM / current sources; older XCFrameworks may still show iOS 13 in metadata until regenerated.
