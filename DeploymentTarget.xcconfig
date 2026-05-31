@@ -1,0 +1,2 @@
+// Xcode 15+ removed libarclite; dependencies must target iOS 12+.
+IPHONEOS_DEPLOYMENT_TARGET = 13.0

@@ -3,7 +3,7 @@ import PackageDescription
 
 let package = Package(
     name: "RIBsTreeViewerClient",
-    platforms: [.iOS(.v8)],
+    platforms: [.iOS(.v13)],
     products: [
         .library(name: "RIBsTreeViewerClient", targets: ["RIBsTreeViewerClient"]),
     ],

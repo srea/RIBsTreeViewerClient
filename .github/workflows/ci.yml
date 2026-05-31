@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Browser
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: yarn
+          cache-dependency-path: Browser/yarn.lock
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
+
+  websocket-server:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: WebSocketServer
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: WebSocketServer/package-lock.json
+      - run: npm ci
+
+  ios:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Carthage
+        run: brew install carthage
+      - name: Build dependencies
+        run: make setup-ci
+      - name: Build RIBsTreeViewerClient (Simulator)
+        run: |
+          xcodebuild build \
+            -project RIBsTreeViewerClient.xcodeproj \
+            -scheme RIBsTreeViewerClient \
+            -destination 'generic/platform=iOS Simulator' \
+            -configuration Release \
+            BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
+            CODE_SIGNING_ALLOWED=NO

@@ -1,0 +1,33 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.2 effective-5.10 (swiftlang-6.2.0.19.9 clang-1700.3.19.1)
+// swift-module-flags: -target arm64-apple-ios13.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -module-name RIBsTreeViewerClient
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface -formal-cxx-interoperability-mode=off -interface-compiler-version 6.2
+import Foundation
+import RIBs
+@_exported import RIBsTreeViewerClient
+import RxSwift
+import Swift
+import UIKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+public protocol RIBsTreeViewer {
+  #if compiler(>=5.3) && $NonescapableTypes
+  init(router: any RIBs.Routing, options: [RIBsTreeViewerClient.RIBsTreeViewerOption]?)
+  #endif
+  func start()
+  func stop()
+}
+public enum RIBsTreeViewerOption {
+  case webSocketURL(Swift.String)
+  case monitoringIntervalMillis(Swift.Int)
+}
+@available(iOS 13.0, *)
+public class RIBsTreeViewerImpl : RIBsTreeViewerClient.RIBsTreeViewer {
+  #if compiler(>=5.3) && $NonescapableTypes
+  required public init(router: any RIBs.Routing, options: [RIBsTreeViewerClient.RIBsTreeViewerOption]?)
+  #endif
+  public func start()
+  public func stop()
+  @objc deinit
+}
