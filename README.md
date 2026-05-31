@@ -20,6 +20,19 @@ Add the xcframework to your project。
 ./Products/RIBsTreeViewerClient.xcframework
 ```
 
+### Swift Package Manager (in progress)
+
+SPM integration is being rolled out in [#38](https://github.com/srea/RIBsTreeViewerClient/issues/38). For local development of this repo:
+
+```swift
+// Package.swift dependency (consumer apps)
+.package(url: "https://github.com/srea/RIBsTreeViewerClient.git", from: "1.0.7"),
+```
+
+Or add this package in Xcode via **File → Add Package Dependencies** (once a tagged release includes SPM support).
+
+Requirements when using SPM: **iOS 15+**, [RIBs-iOS](https://github.com/uber/RIBs-iOS) 1.0+, RxSwift 6.x.
+
 ### CocoaPods
 
 This is not supported because the RIBs do not provide an up-to-date PodSpec, making it difficult to resolve dependencies.
@@ -34,7 +47,7 @@ github "srea/RIBsTreeViewerClient"
 $ make setup
 ```
 
-Requires Xcode 15+ and [Carthage](https://github.com/Carthage/Carthage). Dependencies are built as XCFrameworks (Apple Silicon–compatible). Minimum iOS: **13.0**.
+Requires Xcode 15+ and [Carthage](https://github.com/Carthage/Carthage). Dependencies are built as XCFrameworks (Apple Silicon–compatible). Minimum iOS: **13.0** (library source targets **15.0+** when using SPM — see [#38](https://github.com/srea/RIBsTreeViewerClient/issues/38)).
 
 To regenerate the prebuilt `Products/RIBsTreeViewerClient.xcframework` after source changes:
 
@@ -86,7 +99,7 @@ import RIBsTreeViewerClient
 
 extension AppDelegate {
     private func startRIBsTreeViewer(launchRouter: Routing) {
-        if #available(iOS 13.0, *) {
+        if #available(iOS 15.0, *) {
             ribsTreeViewer = RIBsTreeViewerImpl.init(router: launchRouter,
                                                      options: [.webSocketURL("ws://0.0.0.0:8080"),
                                                                .monitoringIntervalMillis(1000)])

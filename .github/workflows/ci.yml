@@ -36,6 +36,13 @@ jobs:
           cache-dependency-path: WebSocketServer/package-lock.json
       - run: npm ci
 
+  spm:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build via Swift Package Manager
+        run: ./scripts/build-spm-package.sh
+
   ios:
     runs-on: macos-14
     steps:
