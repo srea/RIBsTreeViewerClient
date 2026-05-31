@@ -1,0 +1,430 @@
+{
+  "ABIRoot": {
+    "kind": "Root",
+    "name": "RIBsTreeViewerClient",
+    "printedName": "RIBsTreeViewerClient",
+    "children": [
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "RIBsTreeViewerClient",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "RIBsTreeViewerClient"
+      },
+      {
+        "kind": "Import",
+        "name": "RxSwift",
+        "printedName": "RxSwift",
+        "declKind": "Import",
+        "moduleName": "RIBsTreeViewerClient"
+      },
+      {
+        "kind": "Import",
+        "name": "RIBs",
+        "printedName": "RIBs",
+        "declKind": "Import",
+        "moduleName": "RIBsTreeViewerClient"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "RIBsTreeViewer",
+        "printedName": "RIBsTreeViewer",
+        "children": [
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(router:options:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "GenericTypeParam",
+                "printedName": "τ_0_0"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Routing",
+                "printedName": "any RIBs.Routing",
+                "usr": "s:4RIBs7RoutingP"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "[RIBsTreeViewerClient.RIBsTreeViewerOption]?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Array",
+                    "printedName": "[RIBsTreeViewerClient.RIBsTreeViewerOption]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "RIBsTreeViewerOption",
+                        "printedName": "RIBsTreeViewerClient.RIBsTreeViewerOption",
+                        "usr": "s:20RIBsTreeViewerClient0abC6OptionO"
+                      }
+                    ],
+                    "usr": "s:Sa"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:20RIBsTreeViewerClient0abC0P6router7optionsx0A07Routing_p_SayAA0abC6OptionOGSgtcfc",
+            "mangledName": "$s20RIBsTreeViewerClient0abC0P6router7optionsx0A07Routing_p_SayAA0abC6OptionOGSgtcfc",
+            "moduleName": "RIBsTreeViewerClient",
+            "genericSig": "<τ_0_0 where τ_0_0 : RIBsTreeViewerClient.RIBsTreeViewer>",
+            "sugared_genericSig": "<Self where Self : RIBsTreeViewerClient.RIBsTreeViewer>",
+            "protocolReq": true,
+            "reqNewWitnessTableEntry": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "start",
+            "printedName": "start()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:20RIBsTreeViewerClient0abC0P5startyyF",
+            "mangledName": "$s20RIBsTreeViewerClient0abC0P5startyyF",
+            "moduleName": "RIBsTreeViewerClient",
+            "genericSig": "<τ_0_0 where τ_0_0 : RIBsTreeViewerClient.RIBsTreeViewer>",
+            "sugared_genericSig": "<Self where Self : RIBsTreeViewerClient.RIBsTreeViewer>",
+            "protocolReq": true,
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "stop",
+            "printedName": "stop()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:20RIBsTreeViewerClient0abC0P4stopyyF",
+            "mangledName": "$s20RIBsTreeViewerClient0abC0P4stopyyF",
+            "moduleName": "RIBsTreeViewerClient",
+            "genericSig": "<τ_0_0 where τ_0_0 : RIBsTreeViewerClient.RIBsTreeViewer>",
+            "sugared_genericSig": "<Self where Self : RIBsTreeViewerClient.RIBsTreeViewer>",
+            "protocolReq": true,
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "s:20RIBsTreeViewerClient0abC0P",
+        "mangledName": "$s20RIBsTreeViewerClient0abC0P",
+        "moduleName": "RIBsTreeViewerClient",
+        "declAttributes": [
+          "AccessControl"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "RIBsTreeViewerOption",
+        "printedName": "RIBsTreeViewerOption",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "webSocketURL",
+            "printedName": "webSocketURL",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(RIBsTreeViewerClient.RIBsTreeViewerOption.Type) -> (Swift.String) -> RIBsTreeViewerClient.RIBsTreeViewerOption",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.String) -> RIBsTreeViewerClient.RIBsTreeViewerOption",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "RIBsTreeViewerOption",
+                        "printedName": "RIBsTreeViewerClient.RIBsTreeViewerOption",
+                        "usr": "s:20RIBsTreeViewerClient0abC6OptionO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "RIBsTreeViewerClient.RIBsTreeViewerOption.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "RIBsTreeViewerOption",
+                        "printedName": "RIBsTreeViewerClient.RIBsTreeViewerOption",
+                        "usr": "s:20RIBsTreeViewerClient0abC6OptionO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:20RIBsTreeViewerClient0abC6OptionO12webSocketURLyACSScACmF",
+            "mangledName": "$s20RIBsTreeViewerClient0abC6OptionO12webSocketURLyACSScACmF",
+            "moduleName": "RIBsTreeViewerClient"
+          },
+          {
+            "kind": "Var",
+            "name": "monitoringIntervalMillis",
+            "printedName": "monitoringIntervalMillis",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(RIBsTreeViewerClient.RIBsTreeViewerOption.Type) -> (Swift.Int) -> RIBsTreeViewerClient.RIBsTreeViewerOption",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.Int) -> RIBsTreeViewerClient.RIBsTreeViewerOption",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "RIBsTreeViewerOption",
+                        "printedName": "RIBsTreeViewerClient.RIBsTreeViewerOption",
+                        "usr": "s:20RIBsTreeViewerClient0abC6OptionO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Int",
+                        "printedName": "Swift.Int",
+                        "usr": "s:Si"
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "RIBsTreeViewerClient.RIBsTreeViewerOption.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "RIBsTreeViewerOption",
+                        "printedName": "RIBsTreeViewerClient.RIBsTreeViewerOption",
+                        "usr": "s:20RIBsTreeViewerClient0abC6OptionO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:20RIBsTreeViewerClient0abC6OptionO24monitoringIntervalMillisyACSicACmF",
+            "mangledName": "$s20RIBsTreeViewerClient0abC6OptionO24monitoringIntervalMillisyACSicACmF",
+            "moduleName": "RIBsTreeViewerClient"
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "s:20RIBsTreeViewerClient0abC6OptionO",
+        "mangledName": "$s20RIBsTreeViewerClient0abC6OptionO",
+        "moduleName": "RIBsTreeViewerClient",
+        "declAttributes": [
+          "AccessControl"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "RIBsTreeViewerImpl",
+        "printedName": "RIBsTreeViewerImpl",
+        "children": [
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(router:options:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "RIBsTreeViewerImpl",
+                "printedName": "RIBsTreeViewerClient.RIBsTreeViewerImpl",
+                "usr": "s:20RIBsTreeViewerClient0abC4ImplC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Routing",
+                "printedName": "any RIBs.Routing",
+                "usr": "s:4RIBs7RoutingP"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "[RIBsTreeViewerClient.RIBsTreeViewerOption]?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Array",
+                    "printedName": "[RIBsTreeViewerClient.RIBsTreeViewerOption]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "RIBsTreeViewerOption",
+                        "printedName": "RIBsTreeViewerClient.RIBsTreeViewerOption",
+                        "usr": "s:20RIBsTreeViewerClient0abC6OptionO"
+                      }
+                    ],
+                    "usr": "s:Sa"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:20RIBsTreeViewerClient0abC4ImplC6router7optionsAC0A07Routing_p_SayAA0abC6OptionOGSgtcfc",
+            "mangledName": "$s20RIBsTreeViewerClient0abC4ImplC6router7optionsAC0A07Routing_p_SayAA0abC6OptionOGSgtcfc",
+            "moduleName": "RIBsTreeViewerClient",
+            "declAttributes": [
+              "AccessControl",
+              "Required"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "start",
+            "printedName": "start()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:20RIBsTreeViewerClient0abC4ImplC5startyyF",
+            "mangledName": "$s20RIBsTreeViewerClient0abC4ImplC5startyyF",
+            "moduleName": "RIBsTreeViewerClient",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "stop",
+            "printedName": "stop()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:20RIBsTreeViewerClient0abC4ImplC4stopyyF",
+            "mangledName": "$s20RIBsTreeViewerClient0abC4ImplC4stopyyF",
+            "moduleName": "RIBsTreeViewerClient",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "s:20RIBsTreeViewerClient0abC4ImplC",
+        "mangledName": "$s20RIBsTreeViewerClient0abC4ImplC",
+        "moduleName": "RIBsTreeViewerClient",
+        "intro_iOS": "13.0",
+        "declAttributes": [
+          "AccessControl",
+          "Available"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "RIBsTreeViewer",
+            "printedName": "RIBsTreeViewer",
+            "usr": "s:20RIBsTreeViewerClient0abC0P",
+            "mangledName": "$s20RIBsTreeViewerClient0abC0P"
+          }
+        ]
+      }
+    ],
+    "json_format_version": 8
+  },
+  "ConstValues": [
+    {
+      "filePath": "\/tmp\/RIBsTreeViewerClient\/RIBsTreeViewerClient\/Sources\/RIBsTreeViewer.swift",
+      "kind": "BooleanLiteral",
+      "offset": 2713,
+      "length": 5,
+      "value": "false"
+    }
+  ]
+}

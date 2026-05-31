@@ -31,7 +31,15 @@ github "srea/RIBsTreeViewerClient"
 ```
 
 ```
-$ carthage update --platform iOS --no-use-binaries
+$ make setup
+```
+
+Requires Xcode 15+ and [Carthage](https://github.com/Carthage/Carthage). Dependencies are built as XCFrameworks (Apple Silicon–compatible). Minimum iOS: **13.0**.
+
+To regenerate the prebuilt `Products/RIBsTreeViewerClient.xcframework` after source changes:
+
+```
+$ make generate_xcframeworks
 ```
 
 #### Build Phase
