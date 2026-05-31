@@ -28,10 +28,10 @@ echo "==> WebSocket relay"
 (cd WebSocketServer && npm ci)
 
 echo "==> Browser viewer"
-(cd Browser && yarn install --frozen-lockfile && yarn build)
+(cd Browser && npm ci && npm run build)
 
 echo ""
 echo "All checks passed. Usable workflow:"
 echo "  1. cd WebSocketServer && npm start"
-echo "  2. cd Browser && yarn build && open ./public/index.html"
+echo "  2. cd Browser && npm run build && open ./public/index.html"
 echo "  3. Link Products/RIBsTreeViewerClient.xcframework or add SPM package in your app (# DEBUG)"

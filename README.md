@@ -14,7 +14,7 @@ Real Time viewing attached RIBs Tree on Browser
 
 - **iOS 15+** (aligned with [RIBs-iOS](https://github.com/uber/RIBs-iOS) 1.0)
 - Xcode 15+
-- Node.js 20+ (WebSocket relay and browser viewer)
+- Node.js 20+ with **npm** (WebSocket relay and browser viewer)
 
 ## Quick start (local tooling)
 
@@ -26,10 +26,10 @@ Then run the viewer stack in three terminals:
 
 ```shell
 # 1. WebSocket relay (port 8080)
-cd WebSocketServer && npm install && npm start
+cd WebSocketServer && npm ci && npm start
 
 # 2. Browser tree UI
-cd Browser && yarn install && yarn build && open ./public/index.html
+cd Browser && npm ci && npm run build && open ./public/index.html
 
 # 3. Your iOS app (DEBUG): attach RIBsTreeViewer to the launch router — see below
 ```
@@ -106,6 +106,8 @@ Use `127.0.0.1` when running the simulator on the same Mac as the WebSocket rela
 | `make generate_xcframeworks` | Rebuild `Products/*.xcframework` |
 | `make browser-build` | Build browser bundle |
 | `make websocket-server` | Start WebSocket relay |
+
+Browser development: `cd Browser && npm run watch`
 
 ## Notes
 
