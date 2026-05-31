@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Verify RIBsTreeViewerClient is in a usable state (no Carthage required).
+# Verify RIBsTreeViewerClient is in a usable state.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"

@@ -18,8 +18,6 @@ Real Time viewing attached RIBs Tree on Browser
 
 ## Quick start (local tooling)
 
-From a clean clone — **no Carthage**:
-
 ```shell
 ./scripts/verify.sh
 ```
@@ -62,7 +60,7 @@ This pulls [RIBs-iOS](https://github.com/uber/RIBs-iOS) 1.0+ and RxSwift 6.x aut
 
 ### XCFramework
 
-Add the prebuilt binary (no Carthage required for consumers):
+Add the prebuilt binary:
 
 ```
 ./Products/RIBsTreeViewerClient.xcframework
@@ -73,10 +71,6 @@ Regenerate after changing library sources:
 ```shell
 make generate_xcframeworks
 ```
-
-### Carthage (legacy)
-
-Carthage is **deprecated** for this repo ([#38](https://github.com/srea/RIBsTreeViewerClient/issues/38)). Prefer SPM or the XCFramework above.
 
 ## Basic setup (iOS app, DEBUG)
 
@@ -113,7 +107,7 @@ Use `127.0.0.1` when running the simulator on the same Mac as the WebSocket rela
 | `make browser-build` | Build browser bundle |
 | `make websocket-server` | Start WebSocket relay |
 
-## Migration notes
+## Notes
 
-- RIBs iOS now lives at [uber/RIBs-iOS](https://github.com/uber/RIBs-iOS) (not `uber/RIBs`).
-- Minimum iOS is **15** for SPM / current sources; older XCFrameworks may still show iOS 13 in metadata until regenerated.
+- RIBs for iOS: [uber/RIBs-iOS](https://github.com/uber/RIBs-iOS) (the monorepo `uber/RIBs` is Android-focused).
+- SPM migration tracking: [#38](https://github.com/srea/RIBsTreeViewerClient/issues/38) (completed).
